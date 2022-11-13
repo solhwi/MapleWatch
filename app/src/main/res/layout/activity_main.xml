@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".MainActivity"
+    tools:deviceIds="wear">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/inner_linear_layout_padding"
+        app:layout_boxedEdges="all"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:text="@string/GetMyCharacterDescription"
+            android:textAlignment="center"
+            android:textSize="12sp"></TextView>
+
+        <EditText
+            android:id="@+id/inputField"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:inputType="text"
+            android:autofillHints="@string/MyCharacterInputField"
+            android:hint="@string/MyCharacterInputField"
+            android:textSize="12sp"
+            android:translationY="0dp"></EditText>
+
+        <Button
+            android:id="@+id/GetMyCharacterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="0dp"
+            android:text="@string/GetMyCharacterBtn"
+            android:translationY="0dp"
+            android:visibility="visible"></Button>
+
+    </LinearLayout>
+</androidx.wear.widget.BoxInsetLayout>
