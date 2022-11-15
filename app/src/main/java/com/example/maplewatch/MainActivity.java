@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.example.maplewatch.databinding.ActivityMainBinding;
 
+import java.util.regex.Pattern;
+
 public class MainActivity extends Activity
 {
     private Intent watchIntent; // 시계 화면
@@ -24,9 +26,10 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
 
         watchIntent = new Intent(getApplicationContext(), WatchActivity.class);
-        SetMyCharacterBtn();
-
         setContentView(R.layout.activity_main);
+
+        inputField = (EditText)findViewById(R.id.inputField);
+        SetMyCharacterBtn();
     }
 
     private void SetMyCharacterBtn()
@@ -57,12 +60,44 @@ public class MainActivity extends Activity
 
     private boolean IsValidNickname(String nickName)
     {
-        if(nickName.length() > 6 || nickName.length() < 1)
-            return false;
-
         if(nickName == null)
             return false;
 
+        // 닉네임은 한글, 영어, 숫자로만 이루어짐
+        if(!IsAlphaOrNumberOrKorean(nickName))
+            return false;
+
+        // 닉네임은 1 ~ 12 바이트
+        if(!IsValidLength(nickName))
+            return false;
+
         return true;
+    }
+
+    private boolean IsValidLength(String input)
+    {
+        int wordCount = 0;
+
+        for(int i = 0; i < input.length(); i++)
+        {
+            char el = input.charAt(i);
+
+            if(Character.isAlphabetic(el) || Character.isDigit(el)) // 영어나 숫자
+            {
+                wordCount++;
+            }
+            else if(Character.getType(el) == 5) // 한글이 5라고 함
+            {
+                wordCount += 2;
+            }
+        }
+
+        return wordCount <= 12 && wordCount >= 1;
+    }
+
+    private boolean IsAlphaOrNumberOrKorean(String input)
+    {
+        boolean flag = Pattern.matches("^[a-zA-Z0-9가-힣]*$", input);
+        return flag;
     }
 }
