@@ -20,40 +20,71 @@
         <TextView
             android:id="@+id/titleTxt"
             android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_height="20dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="쇠도우끼"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="18sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/jobTxt"
             android:layout_width="100dp"
-            android:layout_height="17.5dp"
+            android:layout_height="10dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:text="보우마스터"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="7sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/levelTxt"
+            android:layout_width="100dp"
+            android:layout_height="15dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:text="Lv. 233"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="11sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/levelTxt"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
+            android:id="@+id/timeTxt"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:text="Lv. 233"
+            android:layout_marginTop="140dp"
+            android:ems="10"
+            android:inputType="time"
+            android:text="06:35"
             android:textAlignment="center"
+            android:textSize="20dp"
             android:textColor="#000000"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/dateTxt"
+            android:layout_width="100dp"
+            android:layout_height="15dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="163dp"
+            android:ems="10"
+            android:inputType="date"
+            android:text="08일 (화)"
+            android:textColor="#000000"
+            android:textAlignment="center"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+
     </RelativeLayout>
 </androidx.wear.widget.BoxInsetLayout>
