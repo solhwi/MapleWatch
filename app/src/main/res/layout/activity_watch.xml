@@ -18,7 +18,7 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/titleTxt"
+            android:id="@+id/characterNameTxt"
             android:layout_width="100dp"
             android:layout_height="20dp"
             android:layout_alignParentTop="true"
