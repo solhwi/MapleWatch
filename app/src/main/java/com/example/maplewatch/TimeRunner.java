@@ -1,26 +1,39 @@
 package com.example.maplewatch;
-import android.widget.TextView;
 
 import java.util.Calendar;
 
 public class TimeRunner implements Runnable
 {
+    private IDataShower dataShower;
+
     private Calendar myCalender;
-    private int month, day, hour, min;
+    private CalendarData currentData;
 
-    private TimeViewController viewController;
+    private static int THREAD_SLEEP_MILLI_TIME = 500;
 
-    public TimeRunner(TimeViewController controller)
+    public TimeRunner(IDataShower controller)
     {
         myCalender = Calendar.getInstance();
-        viewController = controller;
+        dataShower = controller;
     }
 
     @Override
     public void run()
     {
-        UpdateDateTime();
-        RefreshDateTime();
+        while(!Thread.currentThread().isInterrupted())
+        {
+            try
+            {
+                UpdateDateTime();
+                RefreshDateTime();
+
+                Thread.sleep(THREAD_SLEEP_MILLI_TIME);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void UpdateDateTime()
@@ -28,14 +41,14 @@ public class TimeRunner implements Runnable
         long now = System.currentTimeMillis();
         myCalender.setTimeInMillis(now);
 
-        hour = myCalender.get(Calendar.HOUR_OF_DAY);
-        min = myCalender.get(Calendar.MINUTE);
-        day = myCalender.get(Calendar.DAY_OF_MONTH);
-        month = myCalender.get(Calendar.MONTH);
+        currentData = new CalendarData(myCalender);
     }
 
     private void RefreshDateTime()
     {
-        viewController.Show(month, day, hour, min);
+        if(currentData == null)
+            return;
+
+        dataShower.ShowCalendarInfo(currentData);
     }
 }

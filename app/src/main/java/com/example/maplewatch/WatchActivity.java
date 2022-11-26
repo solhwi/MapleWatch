@@ -1,44 +1,54 @@
 package com.example.maplewatch;
 
 import android.app.Activity;
-import android.graphics.Canvas;
-import android.graphics.Rect;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-import java.time.*;
-
-import java.util.Calendar;
-import java.util.Date;
 
 public class WatchActivity extends Activity
 {
-    private TextView characterNameTxt, jobTxt, levelTxt;
-    private ImageView characterImg;
+    private CharacterSetter characterSetter;
 
-    private TimeRunner timeRunner;
+    private Thread timeThread;
+    private Runnable timeRunner;
 
-    private String characterName, job;
-    private int myLevel;
+    private Intent currentIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch);
-        SetRunners();
+
+        StartTimeRunner();
+        StartCharacterSetter();
     }
 
-    private void SetRunners()
+    @Override
+    protected void onDestroy()
     {
-        TimeViewController controller = new TimeViewController(this);
-        timeRunner = new TimeRunner(controller);
+        timeThread.interrupt();
+        super.onDestroy();
+    }
+
+    private void StartTimeRunner()
+    {
+        timeRunner = new TimeRunner(new TextViewController(this));
+
+        timeThread = new Thread(timeRunner);
+        timeThread.start();
+    }
+
+    private void StartCharacterSetter()
+    {
+        if(currentIntent == null)
+            currentIntent = getIntent();
+
+        String currentNickName = currentIntent.getStringExtra("nickname");
+
+        IDataShower[] dataShowers = { new ImageViewController(this), new TextViewController(this) };
+
+        characterSetter = new CharacterSetter(dataShowers, currentNickName);
+        characterSetter.Start();
     }
 
 }
