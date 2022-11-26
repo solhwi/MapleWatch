@@ -17,7 +17,11 @@ public class CharacterSetter
     public CharacterInfoData Make(String nickname)
     {
         // 여기서 웹과 통신한다.
-        return new CharacterInfoData();
+
+        CharacterInfoData data = new CharacterInfoData();
+        data.characterName = nickname;
+
+        return data;
     }
 
     public void Start()
