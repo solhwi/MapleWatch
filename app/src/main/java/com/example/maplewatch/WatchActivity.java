@@ -6,10 +6,8 @@ import android.os.Bundle;
 
 public class WatchActivity extends Activity
 {
-    private CharacterSetter characterSetter;
-
-    private Thread timeThread;
-    private Runnable timeRunner;
+    private Thread timeThread, characterThread;
+    private Runnable timeRunner, characterSetter;
 
     private Intent currentIntent;
 
@@ -27,6 +25,7 @@ public class WatchActivity extends Activity
     protected void onDestroy()
     {
         timeThread.interrupt();
+        characterThread.interrupt();
         super.onDestroy();
     }
 
@@ -48,7 +47,9 @@ public class WatchActivity extends Activity
         IDataShower[] dataShowers = { new ImageViewController(this), new TextViewController(this) };
 
         characterSetter = new CharacterSetter(dataShowers, currentNickName);
-        characterSetter.Start();
+
+        characterThread = new Thread(characterSetter);
+        characterThread.start();
     }
 
 }
